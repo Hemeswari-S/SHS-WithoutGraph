@@ -1,0 +1,3727 @@
+"'For Approval(Approver2)' As screen":
+
+    "'compForApproval(A2)' As Component1":
+        Height: =768
+        MainMenuOnselect: ="Text"
+        SubMenuOnselect: =
+
+    "'ForApprovel1-main_1' As groupContainer.verticalAutoLayoutContainer":
+        Height: =App.Height-'compForApproval(A1)'.ComHeaderHeight
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A1)'.ComHeaderHeight
+        ZIndex: =2
+
+        "'Button&heading_15' As groupContainer.verticalAutoLayoutContainer":
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =80
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =3
+
+            Container26_33 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =1
+
+                Segment_L_15 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Height: =80
+                    PaddingLeft: =35
+                    Size: =20
+                    Text: ="Study List"
+                    ZIndex: =1
+
+            Container27_41 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Parent.Height
+                LayoutGap: =10
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Icon27_8 As icon.Reload:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =RGBA(2, 14, 242, 1)
+                    Height: =25
+                    Icon: =Icon.Reload
+                    OnSelect: =Refresh('Divisions With Study')
+                    Width: =30
+                    X: =903
+                    Y: =180
+                    ZIndex: =1
+
+                Container25_42 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =255
+                    ZIndex: =2
+
+                    TextInput1_9 As text:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        BorderThickness: =1
+                        Default: =""
+                        DelayOutput: =true
+                        HintText: ="Search"
+                        HoverBorderColor: =RGBA(0, 0, 0, 1)
+                        HoverFill: =RGBA(255, 255, 255, 1)
+                        OnChange: =Set(search_name,TextInput1_9.Text)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =250
+                        X: =29
+                        Y: =20
+                        ZIndex: =1
+
+                    Icon28_37 As icon.Search:
+                        Height: =40
+                        Icon: =Icon.Search
+                        OnSelect: =Set(search_name,TextInput1_9.Text)
+                        Visible: =If(IsBlank(TextInput1_9.Text),true,false)
+                        Width: =34
+                        X: =298
+                        Y: =20
+                        ZIndex: =2
+
+                    Icon28_38 As icon.Cancel:
+                        Height: =35
+                        Icon: =Icon.Cancel
+                        OnSelect: =Set(search_name,"");Reset(TextInput1_9)
+                        Visible: =If(IsBlank(TextInput1_9.Text),false,true)
+                        Width: =35
+                        X: =298
+                        Y: =20
+                        ZIndex: =3
+
+                Container25_43 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =3
+
+                    Icon29_17 As icon.AddDocument:
+                        Color: =RGBA(255, 255, 255, 1)
+                        Height: =40
+                        Icon: =Icon.AddDocument
+                        Width: =38
+                        X: =14
+                        Y: =21
+                        ZIndex: =2
+
+                    Container6_20 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =136
+                        X: =14
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_21 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(5, 89, 8, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |+
+                                =ForAll(
+                                    Gallery_study_9.AllItems As Data,
+                                    Collect(
+                                        CSVData,
+                                        {
+                                           StudyName:Data.'Study Name',
+                                           Division:Data.Division,
+                                           FactorS:Data.Factors_,
+                                           Performanceyear:Data.'Perf Year',
+                                           CurrentQuarter:Data.Quarter
+                                
+                                        }
+                                    )
+                                );
+                                Download(Exportflow.Run(JSON(CSVData),"ForChampionAction").file_link);
+                                Clear(CSVData);
+                                
+                            PaddingLeft: =35
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Export"
+                            Width: =130
+                            ZIndex: =1
+
+                        Icon16_20 As icon.Add:
+                            Color: =RGBA(255, 255, 255, 1)
+                            Height: =40
+                            Icon: =Icon.Export
+                            OnSelect: |+
+                                =ForAll(
+                                    Gallery_study_9.AllItems As Data,
+                                    Collect(
+                                        CSVData,
+                                        {
+                                           StudyName:Data.'Study Name',
+                                           Division:Data.Division,
+                                           FactorS:Data.Factors_,
+                                           Performanceyear:Data.'Perf Year',
+                                           CurrentQuarter:Data.Quarter
+                                
+                                        }
+                                    )
+                                );
+                                Download(Exportflow.Run(JSON(CSVData),"ForChampionAction").file_link);
+                                Clear(CSVData);
+                                
+                            Width: =32
+                            X: =14
+                            ZIndex: =2
+
+        Container14_16 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =537
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Visible: =If(Gallery9.AllItemsCount=0,true,false)
+            Width: =App.Width-'compForChampionAction(C)'.VarMenuWidth
+            X: ='compForChampionAction(C)'.VarMenuWidth
+            Y: =231
+            ZIndex: =4
+
+        Header_question_15 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            BorderThickness: =1
+            FillPortions: =0
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =5
+
+            Container28_38 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =1
+
+                factorname_28 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Study"
+                    ZIndex: =1
+
+            Container28_39 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =2
+
+                factorname_29 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Factors"
+                    Width: =220
+                    ZIndex: =1
+
+            Container27_118 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =3
+
+                factorcode_76 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Division"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_119 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =4
+
+                factorcode_77 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Perf Year"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_120 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =5
+
+                factorcode_78 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Quarter"
+                    Width: =190
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_121 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =150
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =6
+
+                factorcode_79 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    Size: =15
+                    Text: ="Action"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+        Container30_15 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =6
+
+            Gallery_study_9 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Items: |-
+                    =Filter(
+                        'Divisions With Study','Perf Year'=VarCurrentYear.Value,
+                        Title = "approver2",
+                        StartsWith(
+                            'Study Name',
+                            search_study.Text
+                        ) || StartsWith(
+                            'Division Name',
+                            search_study.Text
+                        )
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =320
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateSize: |
+                    =60
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Container32_11 As groupContainer.horizontalAutoLayoutContainer:
+                    Height: =60
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                    LayoutMode: =LayoutMode.Auto
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Container33_53 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        ZIndex: =1
+
+                        Label34_40 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            Height: =60
+                            LayoutMinWidth: =100
+                            PaddingLeft: =15
+                            Text: =If(Len(ThisItem.'Study Name')>15,Left(ThisItem.'Study Name',10)&"...",ThisItem.'Study Name')
+                            Tooltip: =ThisItem.'Study Name'
+                            ZIndex: =1
+
+                    Container33_54 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        ZIndex: =2
+
+                        Label34_41 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            Height: =60
+                            PaddingLeft: =15
+                            Text: =If(Len(ThisItem.Factors_)>15,Left(ThisItem.Factors_,10)&"...",ThisItem.Factors_)
+                            Tooltip: =ThisItem.Factors_
+                            ZIndex: =1
+
+                    Container33_55 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        ZIndex: =3
+
+                        Label34_42 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            Height: =60
+                            PaddingLeft: =15
+                            Text: =If(Len(ThisItem.Division)>15,Left(ThisItem.Division,10)&"...",ThisItem.Division)
+                            Tooltip: =ThisItem.Division
+                            ZIndex: =1
+
+                    Container33_56 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        ZIndex: =4
+
+                        Label34_43 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            Height: =60
+                            Text: =ThisItem.'Perf Year'
+                            ZIndex: =1
+
+                    Container33_57 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =5
+
+                        Label34_44 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            Height: =60
+                            Text: |-
+                                =//ThisItem.'Perfomance Year'
+                                ThisItem.Quarter
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                    Container33_58 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =60
+                        LayoutMinWidth: =150
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =6
+
+                        Icon5_9 As icon.ArrowRight:
+                            Color: =RGBA(0, 0, 0, 1)
+                            Height: =30
+                            Icon: =Icon.ArrowRight
+                            OnSelect: |-
+                                =UpdateContext({ShowActionpage:true})
+                            ZIndex: =1
+
+    NotFound_1 As groupContainer.verticalAutoLayoutContainer:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =569
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =If(Gallery_study_9.AllItemsCount=0,true,false)
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: =199
+        ZIndex: =3
+
+        Image8_15 As image:
+            Height: =200
+            Image: ='Not found'
+            Width: =200
+            ZIndex: =1
+
+        Label19_15 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 0, 0, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =80
+            Size: =17
+            Text: ="No Matching Items Found"
+            Width: =350
+            ZIndex: =2
+
+    Actionpage_3 As groupContainer.verticalAutoLayoutContainer:
+        Fill: =Color.White
+        Height: =App.Height-'compForApproval(A1)'.ComHeaderHeight
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        Visible: |-
+            =ShowActionpage
+            //true
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A1)'.ComHeaderHeight
+        ZIndex: =4
+
+        "'Button&heading_28' As groupContainer.verticalAutoLayoutContainer":
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Container26_46 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =1
+
+                Arrow2_22 As arrow.backArrow:
+                    Height: =30
+                    OnSelect: |-
+                        =UpdateContext({ShowActionpage:false})
+                    Width: =30
+                    ZIndex: =1
+
+            Container27_122 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Parent.Height
+                LayoutGap: =10
+                LayoutMinHeight: =60
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Container25_68 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =255
+                    ZIndex: =1
+
+                    Icon27_4 As icon.Reload:
+                        Color: =RGBA(2, 14, 242, 1)
+                        Height: =25
+                        Icon: =Icon.Reload
+                        OnSelect: =Refresh('Initiative List')
+                        Width: =25
+                        X: =310
+                        Y: =27
+                        ZIndex: =1
+
+                Container25_69 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =2
+
+                    Icon29_25 As icon.AddDocument:
+                        Color: =RGBA(255, 255, 255, 1)
+                        Height: =40
+                        Icon: =Icon.AddDocument
+                        Width: =38
+                        X: =14
+                        Y: =21
+                        ZIndex: =2
+
+                    Container6_38 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =136
+                        X: =14
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_43 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(5, 89, 8, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |+
+                                =ForAll(
+                                    Gallery_study_10.AllItems As Data,
+                                    Collect(
+                                        CSVData,
+                                        {
+                                          Initiative:Data.'Initiative Name',
+                                          Study:Data.Study,
+                                          FActors:Data.Factor,
+                                          SubFactor:Data.SubFactors,
+                                          PerformanceYear:Data.PerfYear,
+                                          SatrtDAte:Data.StartDate,
+                                          'End Date':Data.'End Date',
+                                          Progress:Data.Progress
+                                
+                                
+                                        }
+                                    )
+                                );
+                                Download(Exportflow.Run(JSON(CSVData),"Initiatives").file_link);
+                                Clear(CSVData);
+                                
+                            PaddingLeft: =35
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Export"
+                            Width: =130
+                            ZIndex: =1
+
+                        Icon16_28 As icon.Add:
+                            Color: =RGBA(255, 255, 255, 1)
+                            Height: =40
+                            Icon: =Icon.Export
+                            OnSelect: |+
+                                =ForAll(
+                                    Gallery_study_10.AllItems As Data,
+                                    Collect(
+                                        CSVData,
+                                        {
+                                          Initiative:Data.'Initiative Name',
+                                          Study:Data.Study,
+                                          FActors:Data.Factor,
+                                          SubFactor:Data.SubFactors,
+                                          PerformanceYear:Data.PerfYear,
+                                          SatrtDAte:Data.StartDate,
+                                          'End Date':Data.'End Date',
+                                          Progress:Data.Progress
+                                        }
+                                    )
+                                );
+                                Download(Exportflow.Run(JSON(CSVData),"Initiatives").file_link);
+                                Clear(CSVData);
+                                
+                            Width: =32
+                            X: =14
+                            ZIndex: =2
+
+        "'Button&heading_29' As groupContainer.verticalAutoLayoutContainer":
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =2
+
+            Container26_47 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =1
+
+                Label28_5 As label:
+                    FontWeight: =FontWeight.Bold
+                    PaddingLeft: =20
+                    Text: =Gallery_study_9.Selected.'Study Name'
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+            Container27_123 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Parent.Height
+                LayoutGap: =10
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Container25_70 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =2
+
+                    Container6_39 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =Parent.Width
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_44 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(7, 135, 129, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |-
+                                =UpdateContext({Sendforapproval:true})
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Approve"
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                Container25_71 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =3
+
+                    Container6_40 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =Parent.Width
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_45 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(255, 0, 0, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |-
+                                =UpdateContext({rejectpopup:true})
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Reject"
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                Container71_1 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    Width: =20
+                    ZIndex: =4
+
+        Container70_1 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =10
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =3
+
+        Header_question_16 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            BorderThickness: =1
+            FillPortions: =0
+            Height: =80
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =4
+
+            Container27_124 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =50
+                ZIndex: =1
+
+                Checkbox2_8 As checkbox:
+                    FillPortions: =1
+                    LayoutMinWidth: =50
+                    OnCheck: |-
+                        =ForAll(
+                            Filter(
+                                Gallery_study_10.AllItems,
+                                Checkbox2_8.Value = true
+                            ),
+                            Collect(
+                                ValueofId,
+                                ThisRecord.ID
+                            )
+                        );
+                    Text: =""
+                    ZIndex: =1
+
+            Container28_40 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =2
+
+                factorname_30 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="Initiative"
+                    ZIndex: =1
+
+            Container28_41 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =3
+
+                factorname_31 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="Study"
+                    Width: =220
+                    ZIndex: =1
+
+            Container27_125 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =4
+
+                factorcode_80 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="Factor"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_126 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =5
+
+                factorcode_81 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="SubFactor"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_127 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =120
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =6
+
+                factorcode_82 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =120
+                    Size: =15
+                    Text: ="StartDate"
+                    Width: =190
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_128 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =7
+
+                factorcode_83 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="EndDate"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_129 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =8
+
+                factorcode_84 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="Progress"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+            Container27_130 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =100
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =9
+
+                factorcode_85 As label:
+                    Align: =Align.Center
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Bold
+                    LayoutMinWidth: =100
+                    Size: =15
+                    Text: ="Action"
+                    Width: =220
+                    Y: =130
+                    ZIndex: =1
+
+        Container30_16 As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =5
+
+            Gallery_study_10 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                Items: |-
+                    =Filter(
+                        'Initiative List',
+                        PerfYear = VarCurrentYear.Value,
+                        Progress = "Approval2"
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =320
+                LoadingSpinner: =LoadingSpinner.Data
+                ShowNavigation: =true
+                ShowScrollbar: =false
+                TemplateSize: |
+                    =60
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Header_question_17 As groupContainer.horizontalAutoLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =65
+                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                    LayoutMode: =LayoutMode.Auto
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    Checkbox2_9 As checkbox:
+                        Default: =Checkbox2_8.Value
+                        LayoutMinWidth: =50
+                        OnCheck: =Collect(ValueofId,ThisItem.ID)
+                        Reset: =Resetcheckbox
+                        Text: =""
+                        Width: =50
+                        ZIndex: =1
+
+                    Container28_42 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =2
+
+                        factorname_32 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =130
+                            Size: =15
+                            Text: =If(Len(ThisItem.'Initiative Name')>15,Left(ThisItem.'Initiative Name',10)&"...",ThisItem.'Initiative Name')
+                            Tooltip: =ThisItem.'Initiative Name'
+                            ZIndex: =1
+
+                    Container28_43 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =3
+
+                        factorname_33 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =If(Len(ThisItem.Study)>15,Left(ThisItem.Study,10)&"...",ThisItem.Study)
+                            Tooltip: =ThisItem.Study
+                            Width: =220
+                            ZIndex: =1
+
+                    Container27_131 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =4
+
+                        factorcode_86 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =If(Len(ThisItem.Factor.Value)>15,Left(ThisItem.Factor.Value,7)&"...",ThisItem.Factor.Value)
+                            Tooltip: =ThisItem.Factor.Value
+                            Width: =220
+                            Y: =130
+                            ZIndex: =1
+
+                    Container27_132 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =5
+
+                        factorcode_87 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =If(Len(ThisItem.SubFactors.Value)>15,Left(ThisItem.SubFactors.Value,7)&"...",ThisItem.SubFactors.Value)
+                            Tooltip: =ThisItem.SubFactors.Value
+                            Width: =220
+                            Y: =130
+                            ZIndex: =1
+
+                    Container27_133 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =6
+
+                        factorcode_88 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =ThisItem.StartDate
+                            Width: =190
+                            Y: =130
+                            ZIndex: =1
+
+                    Container27_134 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =7
+
+                        factorcode_89 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =ThisItem.'End Date'
+                            Width: =220
+                            Y: =130
+                            ZIndex: =1
+
+                    Container27_135 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =8
+
+                        factorcode_90 As label:
+                            Align: =Align.Center
+                            FillPortions: =1
+                            LayoutMinWidth: =120
+                            Size: =15
+                            Text: =ThisItem.Progress
+                            Width: =220
+                            Y: =130
+                            ZIndex: =1
+
+                    Container27_136 As groupContainer.horizontalAutoLayoutContainer:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =20
+                        LayoutMinWidth: =120
+                        LayoutMode: =LayoutMode.Auto
+                        Width: =Parent.Width
+                        ZIndex: =9
+
+                        Icon16_23 As icon.DocumentwithContent:
+                            AlignInContainer: =AlignInContainer.Center
+                            FillPortions: =1
+                            Height: =30
+                            Icon: =Icon.DocumentWithContent
+                            LayoutMinWidth: =20
+                            OnSelect: |
+                                =UpdateContext({DisplayInitiative:true});
+                            ZIndex: =3
+
+        Container62_4 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =50
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =30
+            LayoutJustifyContent: =LayoutJustifyContent.End
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =6
+
+            ButtonCanvas3_4 As Button:
+                BasePaletteColor: =RGBA(246, 142, 104, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                FontSize: =17
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                OnSelect: |
+                    =UpdateContext({Showcomments: true});
+                Text: ="Comments"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+            ButtonCanvas2_8 As Button:
+                BasePaletteColor: =RGBA(249, 83, 109, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                OnSelect: |-
+                    =UpdateContext({EvidenceStudyPopup:true})
+                Text: ="For Evidance"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =2
+
+            ButtonCanvas2_9 As Button:
+                BasePaletteColor: =RGBA(180, 214, 250, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                Text: ="ForGraph"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =3
+
+            Container130 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                Width: =30
+                ZIndex: =4
+
+    DisplayInitiative_3 As groupContainer.verticalAutoLayoutContainer:
+        Fill: =RGBA(253, 207, 180, 1)
+        Height: =App.Height-'compForApproval(A2)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutGap: =10
+        LayoutMode: =LayoutMode.Auto
+        Visible: |-
+            =DisplayInitiative
+            //true
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A2)'.ComHeaderHeight
+        ZIndex: =5
+
+        Icon4 As icon.Cancel:
+            AlignInContainer: =AlignInContainer.End
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Cancel
+            OnSelect: |-
+                =UpdateContext({DisplayInitiative:false})
+            Width: =30
+            ZIndex: =1
+
+        "'Button&heading_30' As groupContainer.verticalAutoLayoutContainer":
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =60
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =2
+
+            Container26_48 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                Height: =Parent.Height
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =1
+
+                Label28_6 As label:
+                    FontWeight: =FontWeight.Bold
+                    PaddingLeft: =20
+                    Size: =17
+                    Text: =Gallery_study_2.Selected.'Study Name'
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+            Container27_137 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =Parent.Height
+                LayoutGap: =10
+                LayoutMinHeight: =80
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Container25_72 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =2
+
+                    Container6_41 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =Parent.Width
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_46 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(5, 89, 8, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |-
+                                =//ClearCollect(ValueofIdS,Gallery_study_4.Selected.ID);ApprovalFlowforAdminAction.Run(JSON(ValueofIdS),"Approval1",Gallery_study_7.Selected.ID)
+                                ClearCollect(ValueofId,Gallery_study_10.Selected.ID);
+                                ResponceFlow.Run(
+                                    "approver2",
+                                    "Approved",
+                                    TextInput1_10.Text,
+                                    JSON(ValueofId)
+                                );
+                                
+                                Notify("The initiative is approved successfully",NotificationType.Success);
+                                UpdateContext({DisplayInitiative:false})
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Approve"
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                Container25_73 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    LayoutMinHeight: =80
+                    LayoutMinWidth: =100
+                    Width: =150
+                    ZIndex: =3
+
+                    Container6_42 As groupContainer.manualLayoutContainer:
+                        DropShadow: =DropShadow.None
+                        Height: =40
+                        Width: =Parent.Width
+                        Y: =21
+                        ZIndex: =3
+
+                        Button1_47 As button:
+                            DisabledFill: =Self.Fill
+                            Fill: =RGBA(255, 0, 0, 1)
+                            HoverFill: =Self.Fill
+                            OnSelect: |-
+                                =//ClearCollect(ValueofIdS,Gallery_study_4.Selected.ID);ApprovalFlowforAdminAction.Run(JSON(ValueofIdS),"Rejected",Gallery_study_7.Selected.ID)
+                                ClearCollect(ValueofId,Gallery_study_10.Selected.ID);
+                                ResponceFlow.Run(
+                                    "approver2",
+                                    "Rejected",
+                                    TextInput1_10.Text,
+                                    JSON(ValueofId)
+                                );
+                                Notify("The initiative is rejected successfully",NotificationType.Success);
+                                UpdateContext({DisplayInitiative:false})
+                            PressedColor: =Color.White
+                            PressedFill: =Self.Fill
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Text: ="Reject"
+                            Width: =Parent.Width
+                            ZIndex: =1
+
+                Container92 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    Width: =30
+                    ZIndex: =4
+
+        Container97 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            X: ='compForApproval(A2)'.VarMenuWidth
+            ZIndex: =3
+
+            Form3_5 As form:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DataSource: ='Initiative List'
+                DefaultMode: =FormMode.View
+                FillPortions: =0
+                Height: =320
+                Item: =Gallery_study_10.Selected
+                LayoutMinHeight: =250
+                LayoutMinWidth: =400
+                OnFailure: =
+                OnSuccess: |
+                    =ResetForm(Form3_5);
+                    UpdateContext({CeateInitiative:false})
+                Width: =900
+                ZIndex: =1
+
+                InitiativeCode_DataCard1_5 As typedDataCard.textualEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="InitiativeCode"
+                    Default: =ThisItem.InitiativeCode
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"InitiativeCode")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@'Initiative List'], DataSourceInfo.MaxLength, "InitiativeCode")
+                    Required: =true
+                    Update: =DataCardValue72_5.Text
+                    Width: =300
+                    X: =0
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey72_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue72_5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey72_5.Y + DataCardKey72_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage72_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue72_5.Y + DataCardValue72_5.Height
+                        ZIndex: =3
+
+                    StarVisible72_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey72_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey72_5.Y
+                        ZIndex: =4
+
+                "'Initiative Name_DataCard1_5' As typedDataCard.textualEditCard":
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="InitiativeName"
+                    Default: =ThisItem.'Initiative Name'
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"InitiativeName")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@'Initiative List'], DataSourceInfo.MaxLength, "InitiativeName")
+                    Required: =true
+                    Update: =DataCardValue73_5.Text
+                    Width: =300
+                    X: =1
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey73_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue73_5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey73_5.Y + DataCardKey73_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage73_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue73_5.Y + DataCardValue73_5.Height
+                        ZIndex: =3
+
+                    StarVisible73_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey73_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey73_5.Y
+                        ZIndex: =4
+
+                Description_DataCard1_5 As typedDataCard.textualEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Description"
+                    Default: =ThisItem.Description
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"Description")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =95
+                    MaxLength: =DataSourceInfo([@'Initiative List'], DataSourceInfo.MaxLength, "Description")
+                    Required: =true
+                    Update: =DataCardValue74_5.Text
+                    Width: =300
+                    X: =2
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey74_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue74_5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        PaddingRight: =50
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey74_5.Y + DataCardKey74_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage74_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue74_5.Y + DataCardValue74_5.Height
+                        ZIndex: =3
+
+                    StarVisible74_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey74_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey74_5.Y
+                        ZIndex: =4
+
+                Factor_DataCard1_5 As typedDataCard.comboBoxEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Factor"
+                    Default: =ThisItem.Factor
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"Factor")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =107
+                    Required: =true
+                    Update: =DataCardValue75_5.Selected
+                    Width: =300
+                    X: =0
+                    Y: =1
+                    ZIndex: =2
+
+                    DataCardKey75_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue75_5 As combobox:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DefaultSelectedItems: =Parent.Default
+                        DisplayFields: =["Value"]
+                        DisplayMode: =Parent.DisplayMode
+                        Items: =Choices([@'Initiative List'].Factor)
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        SearchFields: =["Value"]
+                        SearchItems: =Choices('Initiative List'.Factor,DataCardValue75_5.SearchText)
+                        SelectMultiple: =false
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey75_5.Y + DataCardKey75_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage75_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue75_5.Y + DataCardValue75_5.Height
+                        ZIndex: =3
+
+                    StarVisible75_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey75_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey75_5.Y
+                        ZIndex: =4
+
+                SubFactors_DataCard1_5 As typedDataCard.comboBoxEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="SubFactors"
+                    Default: =ThisItem.SubFactors
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"SubFactors")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =true
+                    Update: =DataCardValue76_5.Selected
+                    Width: =300
+                    X: =1
+                    Y: =1
+                    ZIndex: =2
+
+                    DataCardKey76_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue76_5 As combobox:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DefaultSelectedItems: =Parent.Default
+                        DisplayFields: =["Value"]
+                        DisplayMode: =Parent.DisplayMode
+                        Items: =Choices([@'Initiative List'].SubFactors)
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        SearchFields: =["Value"]
+                        SearchItems: =Choices('Initiative List'.SubFactors,DataCardValue76_5.SearchText)
+                        SelectMultiple: =false
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey76_5.Y + DataCardKey76_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage76_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue76_5.Y + DataCardValue76_5.Height
+                        ZIndex: =3
+
+                    StarVisible76_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey76_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey76_5.Y
+                        ZIndex: =4
+
+                StartDate_DataCard1_5 As typedDataCard.dateEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="StartDate"
+                    Default: =ThisItem.StartDate
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"StartDate")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =false
+                    Update: =DataCardValue77_5.SelectedDate
+                    Width: =300
+                    X: =2
+                    Y: =1
+                    ZIndex: =2
+
+                    DataCardKey77_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue77_5 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DefaultDate: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey77_5.Y + DataCardKey77_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage77_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue77_5.Y + DataCardValue77_5.Height
+                        ZIndex: =3
+
+                    StarVisible77_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey77_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey77_5.Y
+                        ZIndex: =4
+
+                "'End Date_DataCard1_5' As typedDataCard.dateEditCard":
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="EndDate"
+                    Default: =ThisItem.'End Date'
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"EndDate")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =115
+                    Required: =false
+                    Update: =DataCardValue78_5.SelectedDate
+                    Width: =300
+                    X: =0
+                    Y: =2
+                    ZIndex: =2
+
+                    DataCardKey78_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue78_5 As datepicker:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DefaultDate: =Parent.Default
+                        DisplayMode: =Parent.DisplayMode
+                        EndYear: =Year(Today())+100
+                        IsEditable: =true
+                        PaddingBottom: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        StartYear: =1899
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey78_5.Y + DataCardKey78_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage78_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue78_5.Y + DataCardValue78_5.Height
+                        ZIndex: =3
+
+                    StarVisible78_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey78_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey78_5.Y
+                        ZIndex: =4
+
+                "'Target Audience_DataCard1_5' As typedDataCard.textualEditCard":
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="TargetAudience"
+                    Default: =ThisItem.'Target Audience'
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"TargetAudience")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    MaxLength: =DataSourceInfo([@'Initiative List'], DataSourceInfo.MaxLength, "TargetAudience")
+                    Required: =true
+                    Update: =DataCardValue79_5.Text
+                    Width: =300
+                    X: =1
+                    Y: =2
+                    ZIndex: =2
+
+                    DataCardKey79_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue79_5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        MaxLength: =Parent.MaxLength
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey79_5.Y + DataCardKey79_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage79_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue79_5.Y + DataCardValue79_5.Height
+                        ZIndex: =3
+
+                    StarVisible79_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey79_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey79_5.Y
+                        ZIndex: =4
+
+                Budget_DataCard1_5 As typedDataCard.numberEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="Budget"
+                    Default: =ThisItem.Budget
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"Budget")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =50
+                    Required: =true
+                    Update: =Value(DataCardValue80_5.Text)
+                    Width: =300
+                    X: =2
+                    Y: =2
+                    ZIndex: =2
+
+                    DataCardKey80_5 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        Height: =34
+                        Text: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue80_5 As text:
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        Default: =Parent.Default
+                        DelayOutput: =true
+                        DisplayMode: =Parent.DisplayMode
+                        Format: =TextFormat.Number
+                        PaddingLeft: =5
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardKey80_5.Y + DataCardKey80_5.Height + 5
+                        ZIndex: =2
+
+                    ErrorMessage80_5 As label:
+                        AutoHeight: =true
+                        Height: =10
+                        Live: =Live.Assertive
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =Parent.Error
+                        Visible: =Parent.DisplayMode=DisplayMode.Edit
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =DataCardValue80_5.Y + DataCardValue80_5.Height
+                        ZIndex: =3
+
+                    StarVisible80_5 As label:
+                        Align: =Align.Center
+                        Height: =DataCardKey80_5.Height
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Wrap: =false
+                        Y: =DataCardKey80_5.Y
+                        ZIndex: =4
+
+            Container153_3 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+        Workflow_5 As groupContainer.verticalAutoLayoutContainer:
+            DropShadow: =DropShadow.None
+            FillPortions: =0
+            Height: =130
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =4
+
+            Container159_15 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =40
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Container167_10 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =40
+                    LayoutMinHeight: =20
+                    LayoutMinWidth: =250
+                    Width: =40
+                    ZIndex: =1
+
+                    Check1_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-5
+                        Y: =-7
+                        ZIndex: =3
+
+                        Circle1_105 As circle:
+                            Fill: =RGBA(0,158,96,1)
+                            Height: =40
+                            Width: =40
+                            ZIndex: =1
+
+                        Icon11_104 As icon.Check:
+                            Color: =Color.White
+                            Height: =23
+                            Icon: =Icon.Check
+                            Width: =22
+                            X: =9
+                            Y: =8
+                            ZIndex: =2
+
+                DataEntryRect_13 As rectangle:
+                    Fill: =RGBA(0,158,96,1)
+                    Height: =2
+                    Width: =50
+                    X: =50
+                    Y: =31
+                    ZIndex: =2
+
+                Container173_110 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =3
+
+                    Rectangle4_92 As rectangle:
+                        Fill: =If(Gallery_study_10.Selected.Progress="Review",Color.Gray,RGBA(0, 158, 96,1))
+                        Height: =2
+                        Width: =Parent.Width
+                        Y: =19
+                        ZIndex: =1
+
+                    Check2_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-167
+                        Y: =-7
+                        ZIndex: =4
+
+                        Circle1_106 As circle:
+                            Fill: =If(Gallery_study_10.Selected.Progress="Review",Color.Gray,RGBA(0, 158, 96,1))
+                            Height: =40
+                            Width: =40
+                            X: =46
+                            ZIndex: =2
+
+                        Icon11_105 As icon.Check:
+                            Color: =Color.White
+                            Height: =21
+                            Icon: =Icon.Check
+                            Width: =25
+                            X: =53
+                            Y: =9
+                            ZIndex: =3
+
+                Container173_111 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =4
+
+                    Rectangle4_93 As rectangle:
+                        Fill: |+
+                            =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,RGBA(0,158,96,1))
+                            
+                        Height: =2
+                        Width: =Parent.Width
+                        Y: =19
+                        ZIndex: =1
+
+                    Check3_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-356
+                        Y: =-7
+                        ZIndex: =4
+
+                        Circle1_107 As circle:
+                            Fill: |+
+                                =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,RGBA(0,158,96,1))
+                                
+                            Height: =40
+                            Width: =40
+                            X: =40
+                            ZIndex: =2
+
+                        Icon11_106 As icon.Check:
+                            Color: =Color.White
+                            Height: =21
+                            Icon: =Icon.Check
+                            Width: =28
+                            X: =46
+                            Y: =9
+                            ZIndex: =3
+
+                Container173_112 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =5
+
+                    Rectangle4_94 As rectangle:
+                        Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1",Color.Gray,RGBA(0,158,96,1)))
+                        Height: =2
+                        Width: =Parent.Width
+                        Y: =19
+                        ZIndex: =1
+
+                    Check4_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-507
+                        Y: =-7
+                        ZIndex: =4
+
+                        Circle1_108 As circle:
+                            Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1",Color.Gray,RGBA(0,158,96,1)))
+                            Height: =40
+                            Width: =40
+                            X: =34
+                            ZIndex: =2
+
+                        Icon11_107 As icon.Check:
+                            Color: =Color.White
+                            Height: =25
+                            Icon: =Icon.Check
+                            Width: =29
+                            X: =39
+                            Y: =7
+                            ZIndex: =3
+
+                Container173_113 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =6
+
+                    Rectangle4_95 As rectangle:
+                        Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,RGBA(0,158,96,1)))
+                        Height: =2
+                        Width: =Parent.Width
+                        Y: =19
+                        ZIndex: =1
+
+                    Check5_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-710
+                        Y: =-7
+                        ZIndex: =4
+
+                        Circle1_109 As circle:
+                            Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,RGBA(0,158,96,1)))
+                            Height: =40
+                            Width: =40
+                            X: =39
+                            ZIndex: =2
+
+                        Icon11_108 As icon.Check:
+                            Color: =Color.White
+                            Height: =25
+                            Icon: =Icon.Check
+                            Width: =29
+                            X: =44
+                            Y: =7
+                            ZIndex: =3
+
+                Container173_114 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =7
+
+                    Rectangle4_96 As rectangle:
+                        Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval3",Color.Gray,RGBA(0,158,96,1))))
+                        Height: =2
+                        Width: =200
+                        Y: =19
+                        ZIndex: =1
+
+                    Check6_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-940
+                        Y: =-7
+                        ZIndex: =4
+
+                        Circle1_110 As circle:
+                            Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval3",Color.Gray,RGBA(0,158,96,1))))
+                            Height: =40
+                            Width: =40
+                            X: =40
+                            ZIndex: =2
+
+                        Icon11_109 As icon.Check:
+                            Color: =Color.White
+                            Height: =25
+                            Icon: =Icon.Check
+                            Width: =29
+                            X: =45
+                            Y: =7
+                            ZIndex: =3
+
+                Container173_115 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =8
+
+                    Rectangle4_97 As rectangle:
+                        Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval3"||Gallery_study_10.Selected.Progress="Approval4",Color.Gray,RGBA(0,158,96,1))))
+                        Height: =2
+                        Width: =Parent.Width
+                        Y: =19
+                        ZIndex: =2
+
+                    Check7_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-1117
+                        Y: =-7
+                        ZIndex: =3
+
+                        Circle1_111 As circle:
+                            Fill: =If(Gallery_study_10.Selected.Progress="Review"||Gallery_study_10.Selected.Progress="Admin Review",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval1"||Gallery_study_10.Selected.Progress="Approval2",Color.Gray,If(Gallery_study_10.Selected.Progress="Approval3"||Gallery_study_10.Selected.Progress="Approval4",Color.Gray,RGBA(0,158,96,1))))
+                            Height: =40
+                            Width: =40
+                            X: =40
+                            ZIndex: =1
+
+                        Icon11_110 As icon.Check:
+                            Color: =Color.White
+                            Height: =25
+                            Icon: =Icon.Check
+                            Width: =29
+                            X: =45
+                            Y: =7
+                            ZIndex: =3
+
+                Rectangle4_98 As rectangle:
+                    Fill: =If(Gallery_study_10.Selected.'Initiative Progess'<=0,Color.Gray,RGBA(0,158,96,1))
+                    Height: =2
+                    Width: =70
+                    X: =1231
+                    Y: =31
+                    ZIndex: =9
+
+                Container167_11 As groupContainer.manualLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =40
+                    LayoutMinHeight: =20
+                    LayoutMinWidth: =250
+                    Width: =40
+                    ZIndex: =10
+
+                    Check8_13 As group:
+                        Height: =5
+                        Width: =5
+                        X: =-1290
+                        Y: =-7
+                        ZIndex: =3
+
+                        Circle1_112 As circle:
+                            Fill: =If(Gallery_study_10.Selected.'Initiative Progess'<=0,Color.Gray,RGBA(0,158,96,1))
+                            Height: =40
+                            Width: =40
+                            ZIndex: =1
+
+                        Icon11_111 As icon.Check:
+                            Color: =Color.White
+                            Height: =40
+                            Icon: =Icon.Check
+                            Width: =29
+                            X: =10
+                            ZIndex: =2
+
+            Container159_16 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =40
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =2
+
+                Container173_116 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =20
+                    Width: =100
+                    ZIndex: =1
+
+                    Label68_75 As label:
+                        Text: ="Data Entry"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_117 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =2
+
+                    Label68_76 As label:
+                        Text: ="For Action"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_118 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =3
+
+                    Label68_77 As label:
+                        Text: ="For Review"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_119 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =4
+
+                    Label68_78 As label:
+                        Text: ="For Approval"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_120 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =5
+
+                    Label68_79 As label:
+                        Text: ="For Approval"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_121 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =6
+
+                    Label68_80 As label:
+                        Text: ="For Approval"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_122 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =7
+
+                    Label68_81 As label:
+                        Text: ="For Approval"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_123 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    Width: =100
+                    ZIndex: =9
+
+                    Label68_82 As label:
+                        Text: ="Completed"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+            Container159_17 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =40
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =3
+
+                Container173_124 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =20
+                    Width: =100
+                    ZIndex: =1
+
+                    Label68_83 As label:
+                        Size: =12
+                        Text: |
+                            =Text(Gallery_study_10.Selected.Created,DateTimeFormat.ShortDate)
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_125 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =2
+
+                    Label68_84 As label:
+                        Text: ="Champion"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_126 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =3
+
+                    Label68_85 As label:
+                        Text: ="Admin"
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_127 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =4
+
+                    Label68_86 As label:
+                        Text: =Gallery_study_10.Selected.Approver1
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_128 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =5
+
+                    Label68_87 As label:
+                        Text: =Gallery_study_10.Selected.Approver2
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_129 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =6
+
+                    Label68_88 As label:
+                        Text: =Gallery_study_10.Selected.Approver3
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_130 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    ZIndex: =7
+
+                    Label68_89 As label:
+                        Text: =Gallery_study_10.Selected.Approver4
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                Container173_131 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =Parent.Height
+                    LayoutMinHeight: =10
+                    LayoutMinWidth: =40
+                    Width: =100
+                    ZIndex: =9
+
+        Container62_9 As groupContainer.verticalAutoLayoutContainer:
+            FillPortions: =0
+            Height: =50
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =30
+            LayoutJustifyContent: =LayoutJustifyContent.End
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =5
+
+            ButtonCanvas3_11 As Button:
+                BasePaletteColor: =RGBA(246, 142, 104, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                FontSize: =17
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                OnSelect: |
+                    =UpdateContext({initiativescomments: true});
+                Text: ="Comments"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =1
+
+            ButtonCanvas2_18 As Button:
+                BasePaletteColor: =RGBA(249, 83, 109, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                OnSelect: |-
+                    =UpdateContext({EvidenceinitativePopup:true})
+                Text: ="For Evidance"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =2
+
+            ButtonCanvas2_19 As Button:
+                BasePaletteColor: =RGBA(180, 214, 250, 1)
+                DisplayMode: =DisplayMode.Edit
+                FontColor: =
+                Height: =32
+                LayoutMinHeight: =32
+                LayoutMinWidth: =96
+                Text: ="ForGraph"
+                Width: =150
+                X: =0
+                Y: =0
+                ZIndex: =3
+
+            Container100 As groupContainer.manualLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                Width: =30
+                ZIndex: =4
+
+    "'Approver(A2)' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(60, 240, 237, 0.21)
+        Height: =App.Height-'compForApproval(A2)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =Sendforapproval
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A2)'.ComHeaderHeight
+        ZIndex: =6
+
+        Container133 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =500
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =900
+            ZIndex: =1
+
+            Container134 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =900
+                ZIndex: =1
+
+                Label33_2 As label:
+                    Align: =Align.Center
+                    FontWeight: =FontWeight.Semibold
+                    Height: =54
+                    Size: =17
+                    Text: ="Are you Sure, you want"""&Gallery_study_10.Selected.Study &""" to Approve?"
+                    Width: =Parent.Width
+                    Y: =24
+                    ZIndex: =1
+
+            Container135 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =300
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =800
+                ZIndex: =2
+
+                TextInput1_10 As text:
+                    Default: =""
+                    Height: =200
+                    HintText: ="Add Comments"
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    Width: =Parent.Width-50
+                    X: =20
+                    Y: =96
+                    ZIndex: =1
+
+            Container136 As groupContainer.horizontalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =40
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =3
+
+                Button6_5 As button:
+                    Fill: =RGBA(54, 176, 75, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |
+                        =UpdateContext({Resetcheckbox: false});
+                        
+                        ResponceFlow.Run(
+                            "approver2",
+                            "Approved",
+                            TextInput1_10.Text,
+                            JSON(ValueofId)
+                        );
+                        UpdateContext({Sendforapproval: false});
+                        Notify(
+                            "The initiatives are approved successfully",
+                            NotificationType.Success
+                        );
+                        Clear(ValueofId);
+                        UpdateContext({Resetcheckbox: true});
+                        Reset(Checkbox2_8)
+                    Text: ="Approve"
+                    Width: =142
+                    X: =189
+                    Y: =300
+                    ZIndex: =1
+
+                Button6_4 As button:
+                    Fill: =RGBA(215, 58, 60, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |-
+                        =UpdateContext({Sendforapproval:false})
+                    Text: ="Cancel"
+                    Width: =142
+                    X: =435
+                    Y: =300
+                    ZIndex: =2
+
+    "'Reject(A2)' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(35, 235, 228, 0.27)
+        Height: =App.Height-'compForApproval(A2)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =rejectpopup
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A2)'.ComHeaderHeight
+        ZIndex: =7
+
+        Container138 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.Center
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =500
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =900
+            ZIndex: =1
+
+            Container139 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =90
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutJustifyContent: =LayoutJustifyContent.End
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =1
+
+                Label37_5 As label:
+                    Align: =Align.Center
+                    FontWeight: =FontWeight.Bold
+                    Height: =50
+                    Size: =20
+                    Text: ="Confirm Submission"
+                    Width: =412
+                    X: =4
+                    Y: =18
+                    ZIndex: =1
+
+            Container140 As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =60
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =900
+                ZIndex: =2
+
+                Label38_5 As label:
+                    Align: =Align.Center
+                    Height: =60
+                    Size: =20
+                    Text: ="Are you sure you want to reject the initiatives of '"&Gallery_study_3.Selected.Study&"'?"
+                    Width: =869
+                    X: =44
+                    Y: =95
+                    ZIndex: =1
+
+            Container141 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =250
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =3
+
+                TextInput3_5 As text:
+                    Default: =""
+                    Height: =235
+                    HintText: ="Add Comments "
+                    HoverFill: =RGBA(255, 255, 255, 1)
+                    Size: =18
+                    Width: =725
+                    X: =56
+                    Y: =175
+                    ZIndex: =1
+
+            Container142 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =40
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =4
+
+                Button5_11 As button:
+                    DisplayMode: =If(TextInput3_5.Text="",DisplayMode.Disabled,DisplayMode.Edit)
+                    Fill: =RGBA(54, 176, 75, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |
+                        =UpdateContext({Resetcheckbox: false});
+                        
+                        ResponceFlow.Run(
+                            "approver2",
+                            "Rejected",
+                            TextInput1_10.Text,
+                            JSON(ValueofId)
+                        );
+                        UpdateContext({rejectpopup: false});
+                        Notify(
+                            "The initiatives are rejected successfully",
+                            NotificationType.Success
+                        );
+                        
+                        Clear(ValueofId);
+                        UpdateContext({Resetcheckbox: true});
+                        Reset(Checkbox2_8);
+                        
+                        UpdateContext({rejectpopup: false});
+                    Text: ="Confirm"
+                    Width: =180
+                    X: =313
+                    Y: =462
+                    ZIndex: =1
+
+                Button5_10 As button:
+                    Fill: =RGBA(215, 58, 60, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |-
+                        =UpdateContext({rejectpopup:false})
+                    Text: ="Cancel"
+                    Width: =180
+                    X: =519
+                    Y: =462
+                    ZIndex: =2
+
+    "'ForEvidenceInitiatives(A2)' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(12, 232, 228, 0.33)
+        Height: =App.Height-'compForApproval(A2)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =EvidenceinitativePopup
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A2)'.ComHeaderHeight
+        ZIndex: =9
+
+        Container110 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =500
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =900
+            ZIndex: =1
+
+            EvidenceformForadminAction_6 As form:
+                DataSource: ='Initiative List'
+                Height: =488
+                Item: =Gallery_study_10.Selected
+                LayoutMinHeight: =250
+                LayoutMinWidth: =400
+                NumberOfColumns: =1
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Attachments_DataCard2_3 As typedDataCard.attachmentsEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="{Attachments}"
+                    Default: =ThisItem.Attachments
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Initiative List'],DataSourceInfo.DisplayName,"{Attachments}")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =396
+                    Required: =false
+                    Update: =DataCardValue113_3.Attachments
+                    Width: =Parent.Width
+                    X: =0
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey112_3 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        FontWeight: =FontWeight.Bold
+                        Height: =34
+                        Size: =17
+                        Text: ="Attach Evidence Here"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =15
+                        ZIndex: =1
+
+                    DataCardValue113_3 As attachments:
+                        AddAttachmentText: ="Drag & Drop File Or Click Here To Attach Evidence"
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DisplayMode: =Parent.DisplayMode
+                        FontWeight: =FontWeight.Bold
+                        Height: |
+                            =300
+                        IsInDataCard: =true
+                        Items: =Parent.Default
+                        NoAttachmentsText: =" "
+                        PaddingBottom: =5
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =74
+                        ZIndex: =2
+
+            Container116 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =40
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Button3_12 As button:
+                    Fill: =RGBA(54, 176, 75, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: =SubmitForm(EvidenceformForadminAction_6);
+                    Text: ="Upload"
+                    X: =918
+                    Y: =500
+                    ZIndex: =1
+
+                Button3_13 As button:
+                    Fill: =RGBA(215, 58, 60, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |-
+                        =UpdateContext({EvidenceinitativePopup:false})
+                    Text: ="Cancel"
+                    X: =188
+                    Y: =500
+                    ZIndex: =2
+
+    "'Evidenceforstudy(A2)' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(24, 242, 224, 0.28)
+        Height: =App.Height-'compForApproval(A2)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =EvidenceStudyPopup
+        Width: =App.Width-'compForApproval(A2)'.VarMenuWidth-'compForApproval(A2)'.NotificationWidth
+        X: ='compForApproval(A2)'.VarMenuWidth
+        Y: ='compForApproval(A2)'.ComHeaderHeight
+        ZIndex: =11
+
+        Container125 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =500
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            Width: =900
+            ZIndex: =1
+
+            EvidenceformForadminAction_7 As form:
+                DataSource: ='Divisions With Study'
+                Height: =488
+                Item: =Gallery_study_9.Selected
+                LayoutMinHeight: =250
+                LayoutMinWidth: =400
+                NumberOfColumns: =1
+                Width: =Parent.Width
+                ZIndex: =1
+
+                Attachments_DataCard3_3 As typedDataCard.attachmentsEditCard:
+                    BorderStyle: =BorderStyle.Solid
+                    DataField: ="{Attachments}"
+                    Default: =ThisItem.Attachments
+                    DisplayMode: =Parent.DisplayMode
+                    DisplayName: =DataSourceInfo([@'Divisions With Study'],DataSourceInfo.DisplayName,"{Attachments}")
+                    Fill: =RGBA(0, 0, 0, 0)
+                    Height: =399
+                    Required: =false
+                    Update: =DataCardValue121_3.Attachments
+                    Width: =900
+                    X: =0
+                    Y: =0
+                    ZIndex: =2
+
+                    DataCardKey120_3 As label:
+                        AutoHeight: =true
+                        Font: =Font.Georgia
+                        FontWeight: =FontWeight.Bold
+                        Height: =34
+                        Size: =17
+                        Text: ="Attach Evidence Here"
+                        Width: =Parent.Width - 60
+                        Wrap: =false
+                        X: =30
+                        Y: =10
+                        ZIndex: =1
+
+                    DataCardValue121_3 As attachments:
+                        AddAttachmentText: ="Drag & drop Or Click Here to Attach the Evidence"
+                        BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                        DisplayMode: =Parent.DisplayMode
+                        FontWeight: =FontWeight.Bold
+                        Height: =304
+                        IsInDataCard: =true
+                        Items: =Parent.Default
+                        NoAttachmentsText: =" "
+                        PaddingBottom: =5
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        PaddingRight: =5
+                        PaddingTop: =5
+                        Tooltip: =Parent.DisplayName
+                        Width: =Parent.Width - 60
+                        X: =30
+                        Y: =71
+                        ZIndex: =2
+
+            Container131 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.Center
+                DropShadow: =DropShadow.None
+                FillPortions: =0
+                Height: =100
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =40
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =2
+
+                Button3_14 As button:
+                    Fill: =RGBA(54, 176, 75, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: =SubmitForm(EvidenceformForadminAction_7);
+                    Text: ="Upload"
+                    X: =918
+                    Y: =500
+                    ZIndex: =1
+
+                Button3_15 As button:
+                    Fill: =RGBA(215, 58, 60, 1)
+                    HoverFill: =Self.Fill
+                    OnSelect: |-
+                        =UpdateContext({EvidenceStudyPopup:false})
+                    Text: ="Cancel"
+                    X: =188
+                    Y: =500
+                    ZIndex: =2
+
+    "'Comments for Study(C)_5' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(89, 247, 239, 0.23)
+        Height: =App.Height-'compForChampionAction(C)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =Showcomments
+        Width: =App.Width-'compForChampionAction(C)'.VarMenuWidth
+        X: ='compForChampionAction(C)'.VarMenuWidth
+        Y: ='compForChampionAction(C)'.ComHeaderHeight
+        ZIndex: =12
+
+        Container182_10 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.Center
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =560
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =900
+            LayoutMode: =LayoutMode.Auto
+            Width: =1000
+            ZIndex: =1
+
+            Container183_10 As groupContainer.manualLayoutContainer:
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                ZIndex: =2
+
+                Circle2_10 As circle:
+                    Fill: =RGBA(255, 184, 174, 1)
+                    Height: =53
+                    OnSelect: |-
+                        =UpdateContext({ShowDropDown:true})
+                    Width: =53
+                    X: =17
+                    Y: =44
+                    ZIndex: =1
+
+                Gallery1_10 As gallery.galleryVertical:
+                    DelayItemLoading: =true
+                    Height: =270
+                    Items: |-
+                        =Filter(
+                            'Comments Section',
+                            CommentsBy = VarUSerName || VarUSerName in 'Private User'.Value,
+                            StudyDivisionId = Gallery_study_9.Selected.ID
+                        )
+                    Layout: =Layout.Vertical
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplateSize: =98
+                    Width: =930
+                    X: =40
+                    Y: =273
+                    ZIndex: =2
+
+                    Label51_10 As label:
+                        Color: |
+                            =If(ThisItem.CommentsBy="champion",Color.DeepSkyBlue,If(ThisItem.CommentsBy="admin",Color.DeepPink,If(ThisItem.CommentsBy="approver1",Color.DarkBlue,If(ThisItem.CommentsBy="approver2",Color.DarkViolet,If(ThisItem.CommentsBy="approver3",Color.DarkCyan,If(ThisItem.CommentsBy="approver4",Color.DarkSalmon))))))
+                        Font: =Font.Georgia
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Size: =17
+                        Text: =ThisItem.CommentsBy
+                        X: =92
+                        Y: =23
+                        ZIndex: =1
+
+                    Label66_10 As label:
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Size: =12
+                        Text: =Text(ThisItem.Modified,DateTimeFormat.ShortDate)
+                        Width: =106
+                        X: =796
+                        Y: =18
+                        ZIndex: =2
+
+                    Label67_10 As label:
+                        Height: =32
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Text: =ThisItem.Comments
+                        Width: =828
+                        X: =92
+                        Y: =58
+                        ZIndex: =3
+
+                    Button20_10 As button:
+                        Fill: |
+                            =If(ThisItem.CommentsBy="champion",Color.DeepSkyBlue,If(ThisItem.CommentsBy="admin",Color.DeepPink,If(ThisItem.CommentsBy="approver1",Color.DarkBlue,If(ThisItem.CommentsBy="approver2",Color.DarkViolet,If(ThisItem.CommentsBy="approver3",Color.DarkCyan,If(ThisItem.CommentsBy="approver4",Color.DarkSalmon))))))
+                        Font: =Font.'Lato Hairline'
+                        FontWeight: =FontWeight.Bold
+                        Height: =50
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        PaddingTop: |
+                            =0
+                        RadiusBottomLeft: =25
+                        RadiusBottomRight: =25
+                        RadiusTopLeft: =25
+                        RadiusTopRight: =25
+                        Size: =25
+                        Text: =If(ThisItem.CommentsBy="champion","C",If(ThisItem.CommentsBy="admin","A",If(ThisItem.CommentsBy="approver1","A1",If(ThisItem.CommentsBy="approver2","A2",If(ThisItem.CommentsBy="approver3","A3",If(ThisItem.CommentsBy="approver4","A4"))))))
+                        Width: =50
+                        X: =26
+                        Y: =18
+                        ZIndex: =4
+
+                Icon12_10 As icon.Cancel:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Height: =30
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =UpdateContext({Showcomments:false});
+                    Width: =30
+                    X: =970
+                    Y: =3
+                    ZIndex: =3
+
+                Icon32_10 As icon.AddUser:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Height: =33
+                    Icon: =Icon.AddUser
+                    OnSelect: =
+                    Width: =33
+                    X: =27
+                    Y: =54
+                    ZIndex: =4
+
+                Form6_10 As form:
+                    DataSource: ='Comments Section'
+                    DefaultMode: =FormMode.New
+                    Height: =273
+                    NumberOfColumns: =1
+                    X: =40
+                    Y: =33
+                    ZIndex: =5
+
+                    "'Private User_DataCard1_10' As typedDataCard.comboBoxMultiSelectEditCard":
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="PrivateUser"
+                        Default: =ThisItem.'Private User'
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@'Comments Section'],DataSourceInfo.DisplayName,"PrivateUser")
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =72
+                        Required: =false
+                        Update: =DataCardValue7_10.SelectedItems
+                        Visible: =true
+                        Width: =788
+                        X: =0
+                        Y: =0
+                        ZIndex: =6
+
+                        DataCardValue7_10 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(255, 255, 255, 1)
+                            ChevronDisabledBackground: =RGBA(255, 255, 255, 1)
+                            ChevronDisabledFill: =RGBA(255, 255, 255, 1)
+                            ChevronFill: =RGBA(0, 0, 0, 1)
+                            ChevronHoverBackground: =Color.LightBlue
+                            DefaultSelectedItems: =Parent.Default
+                            DisabledColor: =RGBA(0, 0, 0, 1)
+                            DisplayFields: =["Value"]
+                            DisplayMode: =Parent.DisplayMode
+                            HoverBorderColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =RGBA(180, 214, 250, 1)
+                            Items: =Choices([@'Comments Section'].PrivateUser)
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            PressedColor: =RGBA(0, 0, 0, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Choices('Comments Section'.PrivateUser,DataCardValue7_10.SearchText)
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =42
+                            Y: =15
+                            ZIndex: =2
+
+                    Comments_DataCard1_10 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Comments"
+                        Default: =ThisItem.Comments
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@'Comments Section'],DataSourceInfo.DisplayName,"Comments")
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =194
+                        MaxLength: =DataSourceInfo([@'Comments Section'], DataSourceInfo.MaxLength, "Comments")
+                        Required: =false
+                        Update: =DataCardValue24_10.Text
+                        Width: =800
+                        X: =0
+                        Y: =1
+                        ZIndex: =6
+
+                        DataCardKey19_10 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(189, 49, 51, 1)
+                            Font: =Font.Georgia
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =17
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =38
+                            ZIndex: =1
+
+                        DataCardValue24_10 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: |
+                                =2
+                            Height: =114
+                            HoverFill: =RGBA(255, 255, 255, 1)
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =726
+                            X: =45
+                            Y: =36
+                            ZIndex: =2
+
+                Button21_10 As button:
+                    DisplayMode: =If(DataCardValue24_10.Text="",DisplayMode.Disabled,DisplayMode.Edit)
+                    Fill: =RGBA(10, 10, 255, 1)
+                    Height: =39
+                    HoverFill: =Self.Fill
+                    OnSelect: |
+                        =Patch(
+                            'Comments Section',
+                            Defaults('Comments Section'),
+                            {StudyDivisionId: Gallery_study_9.Selected.ID,CommentsBy:VarUSerName},Form6_10.Updates
+                        )
+                    Text: ="Add"
+                    Width: =88
+                    X: =840
+                    Y: =184
+                    ZIndex: =6
+
+    "'Comments for Initiatives(C)_5' As groupContainer.verticalAutoLayoutContainer":
+        Fill: =RGBA(89, 247, 239, 0.23)
+        Height: =App.Height-'compForChampionAction(C)'.ComHeaderHeight
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Visible: =initiativescomments
+        Width: =App.Width-'compForChampionAction(C)'.VarMenuWidth
+        X: ='compForChampionAction(C)'.VarMenuWidth
+        Y: ='compForChampionAction(C)'.ComHeaderHeight
+        ZIndex: =13
+
+        Container182_11 As groupContainer.verticalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            DropShadow: =DropShadow.Bold
+            Fill: =RGBA(255, 255, 255, 1)
+            FillPortions: =0
+            Height: =560
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =900
+            LayoutMode: =LayoutMode.Auto
+            Width: =1000
+            ZIndex: =1
+
+            Container183_11 As groupContainer.manualLayoutContainer:
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                ZIndex: =2
+
+                Circle2_11 As circle:
+                    Fill: =RGBA(255, 184, 174, 1)
+                    Height: =53
+                    OnSelect: |-
+                        =UpdateContext({ShowDropDown2:true})
+                    Width: =53
+                    X: =17
+                    Y: =44
+                    ZIndex: =1
+
+                Gallery1_11 As gallery.galleryVertical:
+                    DelayItemLoading: =true
+                    Height: =266
+                    Items: |-
+                        =Filter(
+                            'Comments Section',
+                            CommentsBy = VarUSerName || VarUSerName in 'Private User'.Value,
+                            'Initiatives ID' = Gallery_study_10.Selected.ID
+                        )
+                    Layout: =Layout.Vertical
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplateSize: =106
+                    Width: =910
+                    X: =60
+                    Y: =278
+                    ZIndex: =2
+
+                    Label51_11 As label:
+                        Color: =If(ThisItem.CommentsBy="champion",Color.DeepSkyBlue,If(ThisItem.CommentsBy="admin",Color.DeepPink,If(ThisItem.CommentsBy="approver1",Color.DarkBlue,If(ThisItem.CommentsBy="approver2",Color.DarkViolet,If(ThisItem.CommentsBy="approver3",Color.DarkCyan,If(ThisItem.CommentsBy="approver4",Color.DarkSalmon))))))
+                        Font: =Font.Georgia
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Size: =17
+                        Text: =ThisItem.CommentsBy
+                        X: =92
+                        Y: =7
+                        ZIndex: =1
+
+                    Label66_11 As label:
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Size: =12
+                        Text: =Text(ThisItem.Modified,DateTimeFormat.ShortDate)
+                        Width: =114
+                        X: =786
+                        Y: =18
+                        ZIndex: =2
+
+                    Label67_11 As label:
+                        Height: =30
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        Text: =ThisItem.Comments
+                        Width: =784
+                        X: =92
+                        Y: =47
+                        ZIndex: =3
+
+                    Button20_11 As button:
+                        Fill: =If(ThisItem.CommentsBy="champion",Color.DeepSkyBlue,If(ThisItem.CommentsBy="admin",Color.DeepPink,If(ThisItem.CommentsBy="approver1",Color.DarkBlue,If(ThisItem.CommentsBy="approver2",Color.DarkViolet,If(ThisItem.CommentsBy="approver3",Color.DarkCyan,If(ThisItem.CommentsBy="approver4",Color.DarkSalmon))))))
+                        Font: =Font.'Lato Hairline'
+                        FontWeight: =FontWeight.Bold
+                        Height: =50
+                        HoverFill: =Self.Fill
+                        Italic: =true
+                        OnSelect: =Select(Parent)
+                        PaddingTop: |
+                            =0
+                        RadiusBottomLeft: =25
+                        RadiusBottomRight: =25
+                        RadiusTopLeft: =25
+                        RadiusTopRight: =25
+                        Size: =25
+                        Text: =If(ThisItem.CommentsBy="champion","C",If(ThisItem.CommentsBy="admin","A",If(ThisItem.CommentsBy="approver1","A1",If(ThisItem.CommentsBy="approver2","A2",If(ThisItem.CommentsBy="approver3","A3",If(ThisItem.CommentsBy="approver4","A4"))))))
+                        Width: =50
+                        X: =26
+                        Y: =7
+                        ZIndex: =4
+
+                Icon12_11 As icon.Cancel:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Height: =30
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =UpdateContext({initiativescomments:false});
+                    Width: =30
+                    X: =970
+                    Y: =3
+                    ZIndex: =3
+
+                Icon32_11 As icon.AddUser:
+                    Color: =RGBA(255, 0, 0, 1)
+                    Height: =33
+                    Icon: =Icon.AddUser
+                    OnSelect: |-
+                        =UpdateContext({ShowDropDown2:true})
+                    Width: =33
+                    X: =27
+                    Y: =54
+                    ZIndex: =4
+
+                Form6_11 As form:
+                    DataSource: ='Comments Section'
+                    DefaultMode: =FormMode.New
+                    Height: =273
+                    NumberOfColumns: =1
+                    X: =40
+                    Y: =33
+                    ZIndex: =5
+
+                    "'Private User_DataCard1_11' As typedDataCard.comboBoxMultiSelectEditCard":
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="PrivateUser"
+                        Default: =ThisItem.'Private User'
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@'Comments Section'],DataSourceInfo.DisplayName,"PrivateUser")
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =72
+                        Required: =false
+                        Update: =DataCardValue7_11.SelectedItems
+                        Visible: =true
+                        Width: =788
+                        X: =0
+                        Y: =0
+                        ZIndex: =6
+
+                        DataCardValue7_11 As combobox:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            ChevronBackground: =RGBA(255, 255, 255, 1)
+                            ChevronDisabledBackground: =RGBA(255, 255, 255, 1)
+                            ChevronDisabledFill: =RGBA(255, 255, 255, 1)
+                            ChevronFill: =RGBA(0, 0, 0, 1)
+                            ChevronHoverBackground: =Color.LightBlue
+                            DefaultSelectedItems: =Parent.Default
+                            DisabledColor: =RGBA(0, 0, 0, 1)
+                            DisplayFields: =["Value"]
+                            DisplayMode: =Parent.DisplayMode
+                            HoverBorderColor: =RGBA(0, 0, 0, 1)
+                            HoverFill: =RGBA(180, 214, 250, 1)
+                            Items: =Choices([@'Comments Section'].PrivateUser)
+                            PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                            PressedColor: =RGBA(0, 0, 0, 1)
+                            SearchFields: =["Value"]
+                            SearchItems: =Choices('Comments Section'.PrivateUser,DataCardValue7_11.SearchText)
+                            Tooltip: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            X: =42
+                            Y: =15
+                            ZIndex: =2
+
+                    Comments_DataCard1_11 As typedDataCard.textualEditCard:
+                        BorderStyle: =BorderStyle.Solid
+                        DataField: ="Comments"
+                        Default: =ThisItem.Comments
+                        DisplayMode: =Parent.DisplayMode
+                        DisplayName: =DataSourceInfo([@'Comments Section'],DataSourceInfo.DisplayName,"Comments")
+                        Fill: =RGBA(0, 0, 0, 0)
+                        Height: =194
+                        MaxLength: =DataSourceInfo([@'Comments Section'], DataSourceInfo.MaxLength, "Comments")
+                        Required: =false
+                        Update: =DataCardValue24_11.Text
+                        Width: =800
+                        X: =0
+                        Y: =1
+                        ZIndex: =6
+
+                        DataCardKey19_11 As label:
+                            AutoHeight: =true
+                            Color: =RGBA(189, 49, 51, 1)
+                            Font: =Font.Georgia
+                            FontWeight: =FontWeight.Semibold
+                            Height: =34
+                            Size: =17
+                            Text: =Parent.DisplayName
+                            Width: =Parent.Width - 60
+                            Wrap: =false
+                            X: =38
+                            ZIndex: =1
+
+                        DataCardValue24_11 As text:
+                            BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                            Default: =Parent.Default
+                            DelayOutput: =true
+                            DisplayMode: =Parent.DisplayMode
+                            FocusedBorderThickness: |
+                                =2
+                            Height: =114
+                            HoverFill: =RGBA(255, 255, 255, 1)
+                            MaxLength: =Parent.MaxLength
+                            PaddingLeft: =5
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            Tooltip: =Parent.DisplayName
+                            Width: =726
+                            X: =45
+                            Y: =36
+                            ZIndex: =2
+
+                Button21_11 As button:
+                    DisplayMode: =If(DataCardValue24_11.Text="",DisplayMode.Disabled,DisplayMode.Edit)
+                    Fill: =RGBA(10, 10, 255, 1)
+                    Height: =39
+                    HoverFill: =Self.Fill
+                    OnSelect: |
+                        =
+                        Patch(
+                            'Comments Section',
+                            Defaults('Comments Section'),
+                            {'Initiatives ID': Gallery_study_10.Selected.ID,CommentsBy:VarUSerName},Form6_11.Updates
+                        );
+                        ResetForm(Form6_11);
+                        NewForm(Form6_11)
+                    Text: ="Add"
+                    Width: =88
+                    X: =822
+                    Y: =168
+                    ZIndex: =6
+

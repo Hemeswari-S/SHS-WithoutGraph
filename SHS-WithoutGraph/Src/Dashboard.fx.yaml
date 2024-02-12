@@ -1,0 +1,107 @@
+Dashboard As screen:
+
+    compDB As Component1:
+        Height: =768
+        MainMenuOnselect: ="Text"
+        SubMenuOnselect: =
+
+    Container4 As groupContainer.horizontalAutoLayoutContainer:
+        Height: =645
+        LayoutMode: =LayoutMode.Auto
+        Width: =App.Width-compDB.VarMenuWidth-compDB.NotificationWidth
+        X: =compDB.VarMenuWidth
+        Y: =123
+        ZIndex: =2
+
+        DashboardGallery As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Items: =Division_1
+            Layout: =Layout.Vertical
+            LayoutMinHeight: =287
+            LayoutMinWidth: =320
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =Container53.Height+10
+            Width: =Parent.Width
+            WrapCount: =4
+            ZIndex: =1
+
+            Container53 As groupContainer.verticalAutoLayoutContainer:
+                DropShadow: =DropShadow.Regular
+                Height: =115
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMode: =LayoutMode.Auto
+                Width: =DashboardGallery.TemplateWidth-10
+                X: =5
+                ZIndex: =1
+
+                Label5 As label:
+                    Align: =Align.Center
+                    Fill: =RGBA(214, 221, 224, 0.45)
+                    FontWeight: =FontWeight.Bold
+                    Height: =35
+                    Size: =10
+                    Text: =ThisItem.'Division Name'
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                Label6 As label:
+                    FontWeight: =FontWeight.Semibold
+                    Height: =35
+                    PaddingLeft: =25
+                    Size: =10
+                    Text: =CountRows(Filter('Initiative List',VarCurrentYear.Value=PerfYear,Title=ThisItem.'Division Name'))& " Initiatives"
+                    ZIndex: =2
+
+                Container86 As groupContainer.manualLayoutContainer:
+                    DropShadow: =DropShadow.None
+                    FillPortions: =0
+                    Height: =40
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =30
+                    Width: =Parent.Width
+                    ZIndex: =3
+
+                    Slider4 As slider:
+                        Default: |-
+                            =If(
+                                Not(
+                                    IsEmpty(
+                                        Filter(
+                                            'Initiative List',
+                                            VarCurrentYear.Value=PerfYear,
+                                            Title = ThisItem.'Division Name'
+                                        )
+                                    )
+                                ),
+                                RoundUp(
+                                    Average(
+                                        Filter(
+                                            'Initiative List',
+                                            VarCurrentYear.Value=PerfYear,
+                                            Title = ThisItem.'Division Name'
+                                        ),
+                                        'Initiative Progess'
+                                    ),
+                                    1
+                                ),
+                                0
+                            )
+                        HandleFill: =RGBA(0, 0, 0, 0)
+                        HandleSize: =1
+                        RailFill: =RGBA(128, 130, 133, 0.21)
+                        RailThickness: =20
+                        ValueFill: =RGBA(166, 215, 153, 1)
+                        Width: =Parent.Width-50
+                        X: =25
+                        ZIndex: =1
+
+                    Label37 As label:
+                        Align: =Align.Center
+                        FontWeight: =FontWeight.Semibold
+                        Size: =10
+                        Text: =If(Not(IsEmpty(Filter('Initiative List',VarCurrentYear.Value=PerfYear,Title=ThisItem.'Division Name'))),RoundUp(Average(Filter('Initiative List',VarCurrentYear.Value=PerfYear,Title=ThisItem.'Division Name'),'Initiative Progess'),1)&"% Inprogress","0 Inprogress")
+                        Width: =Parent.Width-50
+                        X: =25
+                        ZIndex: =2
+

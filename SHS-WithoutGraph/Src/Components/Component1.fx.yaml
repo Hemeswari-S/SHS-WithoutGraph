@@ -1,0 +1,713 @@
+Component1 As CanvasComponent:
+    MainMenuOnselect():
+        ThisProperty:
+            Default: ="Text"
+    SubMenuOnselect():
+        ThisProperty:
+            Default: =
+    Adminicon_menu: |-
+        =Table(
+            {
+                Title: "MyProfile",
+                TargetScreen: 'MyProfile(Admin)'
+                
+            },
+            {
+                Title: "Log Out",
+                TargetScreen: 'Login Page'     
+                
+            }
+        )
+    ComHeaderHeight: =Container1.Height
+    CurrentScreen: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =900
+    initiativeCollection: =CollectionofInit
+    IsSubMenuVisible: =true
+    LoginNameMenu: |-
+        =If(
+            VarUSerName = "admin",
+            Table({Title: "A",color: Color.DeepPink}),
+            If(
+                VarUSerName = "champion",
+                Table(
+                    {
+                        Title: "C",
+                        color: Color.DeepSkyBlue
+                    }
+                ),
+                If(
+                    VarUSerName = "approver1",
+                    Table(
+                        {
+                            Title: "A1",
+                            color: Color.DarkBlue
+                        }
+                    ),
+                    If(
+                        VarUSerName = "approver2",
+                        Table(
+                            {
+                                Title: "A2",
+                                color: Color.DarkViolet
+                            }
+                        ),
+                        If(
+                            VarUSerName = "approver3",
+                            Table(
+                                {
+                                    Title: "A3",
+                                    color: Color.DarkCyan
+                                }
+                            ),
+                            If(
+                                VarUSerName = "approver4",
+                                Table(
+                                    {
+                                        Title: "A4",
+                                        color: Color.DarkSalmon
+                                    }
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    MaxSubMenu: =100
+    Menu: |-
+        =If(
+            VarUSerName = "admin",
+            Table(
+                {
+                    Title: "Dashboard",
+                    TargetScreen: Dashboard,
+                    Icon: Icon.DetailList
+                },
+                {
+                    Title: "Inbox",
+                    TargetScreen: App.ActiveScreen,
+                    SubMenu: Table(
+                        {
+                            Title: "All Study",
+                            TargetScreen: 'All Study',
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "All Initiatives ",
+                            TargetScreen: 'All Initiatives',
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "For Admin Action ",
+                            TargetScreen: 'For Admin Action',
+                            Icon: Icon.Check
+                        }
+                    )
+                },
+                {
+                    Title: "Administration",
+                    TargetScreen: App.ActiveScreen,
+                    SubMenu: Table(
+                        {
+                            Title: "Division",
+                            TargetScreen: Division,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Segment ",
+                            TargetScreen: Segment,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Segment Member",
+                            TargetScreen: 'Segment Member',
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Factor",
+                            TargetScreen: Factors,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Subfactors",
+                            TargetScreen: Subfactors,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Questions",
+                            TargetScreen: Questions,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Options",
+                            TargetScreen: Options,
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Study",
+                            TargetScreen: Study,
+                            Icon: Icon.OptionsList
+                        }
+                    )
+                },
+                {
+                    Title: "Settings",
+                    TargetScreen: App.ActiveScreen,
+                    SubMenu: Table(
+                        {
+                            Title: "SHS User",
+                            TargetScreen: 'SHS User',
+                            Icon: Icon.OptionsList
+                        }
+                    )
+                },
+                {
+                    Title: "Configuration",
+                    TargetScreen: App.ActiveScreen,
+                    SubMenu: Table(
+                        {
+                            Title: "SHS Configuration",
+                            TargetScreen: 'SHS Configuration',
+                            Icon: Icon.OptionsList
+                        },
+                        {
+                            Title: "Upload Result",
+                            TargetScreen: 'Upload Result',
+                            Icon: Icon.OptionsList
+                        }
+                    )
+                }
+            ),
+            If(
+                VarUSerName = "champion",
+                Table(
+                    {
+                        Title: "Dashboard",
+                        TargetScreen: Dashboard,
+                        Icon: Icon.DetailList
+                    },
+                    {
+                        Title: "Inbox",
+                        TargetScreen: App.ActiveScreen,
+                        SubMenu: Table(
+                            {
+                                Title: "All Initiatives",
+                                TargetScreen: 'All Initiatives',
+                                Icon: Icon.OptionsList
+                            },
+                            {
+                                Title: "For Champion Action ",
+                                TargetScreen: 'For Champion Action(C)',
+                                Icon: Icon.Check
+                            },
+                            {
+                                Title: "Approved Initiatives ",
+                                TargetScreen: 'Approved Initiatives(C)',
+                                Icon: Icon.OptionsList
+                            }
+                        )
+                    }
+                ),
+                If(
+                    VarUSerName = "approver1",
+                    Table(
+                        {
+                            Title: "Dashboard",
+                            TargetScreen: Dashboard,
+                            Icon: Icon.DetailList
+                        },
+                        {
+                            Title: "Inbox",
+                            TargetScreen: App.ActiveScreen,
+                            SubMenu: Table(
+                                {
+                                    Title: "For Approval",
+                                    TargetScreen: 'For Approval(Approver1)',
+                                    Icon: Icon.OptionsList
+                                }
+                            )
+                        }
+                    ),
+                    If(
+                        VarUSerName = "approver2",
+                        Table(
+                            {
+                                Title: "Dashboard",
+                                TargetScreen: Dashboard,
+                                Icon: Icon.DetailList
+                            },
+                            {
+                                Title: "Inbox",
+                                TargetScreen: App.ActiveScreen,
+                                SubMenu: Table(
+                                    {
+                                        Title: "For Approval",
+                                        TargetScreen: 'For Approval(Approver2)',
+                                        Icon: Icon.OptionsList
+                                    }
+                                )
+                            }
+                        ),
+                        If(
+                            VarUSerName = "approver3",
+                            Table(
+                                {
+                                    Title: "Dashboard",
+                                    TargetScreen: Dashboard,
+                                    Icon: Icon.DetailList
+                                },
+                                {
+                                    Title: "Inbox",
+                                    TargetScreen: App.ActiveScreen,
+                                    SubMenu: Table(
+                                        {
+                                            Title: "For Approval",
+                                            TargetScreen: 'For Approval 3',
+                                            Icon: Icon.OptionsList
+                                        }
+                                    )
+                                }
+                            ),
+                            If(
+                                VarUSerName = "approver4",
+                                Table(
+                                    {
+                                        Title: "Dashboard",
+                                        TargetScreen: Dashboard,
+                                        Icon: Icon.DetailList
+                                    },
+                                    {
+                                        Title: "Inbox",
+                                        TargetScreen: App.ActiveScreen,
+                                        SubMenu: Table(
+                                            {
+                                                Title: "For Approval",
+                                                TargetScreen: 'For Approval 4',
+                                                Icon: Icon.OptionsList
+                                            }
+                                        )
+                                    }
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    NavType: |-
+        =1//1:Left, 2:Top, 3:Bottom
+    NotificationWidth: =NotifyContainer.Width
+    submenu_inbox: |-
+        =Table({SampleStringField: "SampleText", SampleNumberField: 10, SampleBooleanField: true})
+    VarMenuWidth: =MainMenu.Width
+    Width: =1366
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Container1 As groupContainer.manualLayoutContainer:
+        Height: =123
+        Width: =1366
+        ZIndex: =1
+
+        Icon1 As icon.Hamburger:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =52
+            Icon: =Icon.Hamburger
+            OnSelect: =Set(ShowMenu, !ShowMenu)
+            Width: =52
+            X: =39
+            Y: =39
+            ZIndex: =1
+
+        Image7 As image:
+            Image: =logo
+            X: =132
+            Y: =9
+            ZIndex: =2
+
+        Label4 As label:
+            FontWeight: =FontWeight.Bold
+            Height: =52
+            Size: =25
+            Text: ="Supplier Happiness Survey"
+            Width: =488
+            X: =264
+            Y: =39
+            ZIndex: =3
+
+        Icon2 As icon.Bell:
+            Height: =52
+            Icon: =Icon.Bell
+            OnSelect: |
+                =Set(ShowNotification,!ShowNotification);
+            Width: =38
+            X: =Gallery3.X-55
+            Y: =39
+            ZIndex: =4
+
+        Gallery8 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =109
+            Items: =Component1.LoginNameMenu
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateSize: =104
+            Width: =105
+            X: =1205
+            ZIndex: =7
+
+            Circle1_7 As circle:
+                Fill: =ThisItem.color
+                Height: =60
+                OnSelect: =
+                Width: =60
+                X: =35
+                Y: =32
+                ZIndex: =1
+
+            Label6_6 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.Georgia
+                FontWeight: =FontWeight.Bold
+                Height: =60
+                OnSelect: =Set(ShowMenuadmin, !ShowMenuadmin)
+                PaddingLeft: =2
+                PaddingTop: =3
+                Size: =20
+                Text: =ThisItem.Title
+                Width: =60
+                X: =35
+                Y: =32
+                ZIndex: =2
+
+        Button19 As button:
+            Height: =30
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Text: |-
+                =If(CountRows(Filter('Initiative List',Value(PerfYear)=Value(VarCurrentYear.Value),'Current Pending'=VarUSerName))>=10,9&"+",CountRows(Filter('Initiative List',Value(PerfYear)=Value(VarCurrentYear.Value),'Current Pending'=VarUSerName)))
+                //CountRows(Filter(InitCollection,PerfYear=VarCurrentYear.Value,'Current Pending'=VarUSerName))
+            Visible: =If(CountRows(Filter(InitCollection,Value(PerfYear)=Value(VarCurrentYear.Value),'Current Pending'=VarUSerName))=0,false,true)
+            Width: =33
+            X: =Gallery3.X-40
+            Y: =23
+            ZIndex: =9
+
+    MainMenu As gallery.variableTemplateHeightGallery:
+        DelayItemLoading: =true
+        Height: =App.Height
+        Items: =Component1.Menu
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =
+            Navigate(ThisItem.TargetScreen,Transition.None);
+        TemplateFill: =
+        TemplateSize: =280
+        Width: =If(ShowMenu,App.Width/5,0)
+        Y: =Container1.Height
+        ZIndex: =4
+
+        SubmenuGall As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: |-
+                =If(
+                    ThisItem.Title = "Dashboard",
+                    0,
+                    If(
+                        ThisItem.Title = "Inbox",
+                        140,
+                        If(
+                            ThisItem.Title = "Administration",
+                            370,
+                            If(
+                                ThisItem.Title = "Settings",
+                                50,
+                                If(
+                                    ThisItem.Title = "Configuration",
+                                    110,
+                                    0
+                                )
+                            )
+                        )
+                    )
+                )
+            Items: =ThisItem.SubMenu
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplateFill: =If(CureentScreen=ThisItem.Title,Color.Aqua,Color.AliceBlue)
+            TemplateSize: =35
+            Visible: =If(ThisItem.Title=MainMenu.Selected.Title,VarExpandMeu,false)
+            Width: =If(ShowMenu,App.Width/5,0)
+            Y: =Label42.Height
+            ZIndex: =1
+
+            Label42_2 As label:
+                Fill: =If(ThisItem.Title=MainMenu.Selected.Title,Color.Blue,RGBA(0, 0, 0, 0))
+                FontWeight: =FontWeight.Semibold
+                HoverFill: =Color.AntiqueWhite
+                OnSelect: |-
+                    =Component1.SubMenuOnselect();
+                    Navigate(ThisItem.TargetScreen,Transition.None);
+                PaddingLeft: =75
+                PressedFill: =Color.Aqua
+                Text: =ThisItem.Title
+                Width: =SubmenuGall.Width
+                ZIndex: =1
+
+            "Icon19_2 As icon.'3DPrinting'":
+                Height: =25
+                Icon: =ThisItem.Icon
+                OnSelect: =Select(Parent)
+                Width: =25
+                X: =43
+                Y: =9
+                ZIndex: =2
+
+        Label42 As label:
+            Fill: =If(ThisItem.Title=MainMenu.Selected.Title,Color.AliceBlue,RGBA(0, 0, 0, 0))
+            FontWeight: =FontWeight.Semibold
+            OnSelect: |-
+                =Component1.MainMenuOnselect();
+                Navigate(ThisItem.TargetScreen)
+            PaddingLeft: =40
+            Text: =ThisItem.Title
+            Width: =MainMenu.Width
+            Y: =1
+            ZIndex: =2
+
+        "Icon19 As icon.'3DPrinting'":
+            Height: =25
+            Icon: =ThisItem.Icon
+            OnSelect: =Select(Parent)
+            Width: =25
+            X: =6
+            Y: =9
+            ZIndex: =3
+
+        UpArrow As icon.ChevronLeft:
+            Height: =15
+            Icon: =Icon.ChevronLeft
+            OnSelect: |-
+                =
+                Set(VarExpandMeu,false);
+            Rotation: =90
+            Visible: =If(ThisItem.Title="Dashboard",false,If(ThisItem.Title=MainMenu.Selected.Title,VarExpandMeu,false))
+            Width: =21
+            X: =212
+            Y: =13
+            ZIndex: =5
+
+        DownArrow As icon.ChevronLeft:
+            Height: =15
+            Icon: =Icon.ChevronLeft
+            OnSelect: |-
+                =Select(Parent);
+                Set(VarExpandMeu,true);
+            Rotation: =270
+            Visible: |
+                =If(ThisItem.Title="Dashboard",false,If(ThisItem.Title=MainMenu.Selected.Title,!VarExpandMeu,true))
+            Width: =21
+            X: =212
+            Y: =13
+            ZIndex: =6
+
+    Gallery3 As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Fill: =Color.WhiteSmoke
+        Height: =123
+        Items: =Component1.Adminicon_menu
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =Navigate(ThisItem.TargetScreen,Transition.None);
+        ShowScrollbar: =false
+        TemplateSize: =50
+        Transition: =Transition.Pop
+        Visible: |-
+            =//ShowMenuadmin
+            true
+        Width: =If(ShowMenuadmin,200,1)
+        X: =If(ShowMenuadmin,1040,1200)
+        ZIndex: =5
+
+        Label15 As label:
+            Align: =Align.Center
+            DisabledColor: =RGBA(255, 255, 255, 1)
+            Fill: =If(ThisItem.Title=Gallery3.Selected.Title,RGBA(0,0,0,0),RGBA(0, 0, 0, 0))
+            Font: =Font.Georgia
+            Height: =50
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Color.Aqua
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: =ThisItem.Title
+            Width: =188
+            ZIndex: =1
+
+    NotifyContainer As groupContainer.manualLayoutContainer:
+        Height: =777
+        Visible: =ShowNotification
+        Width: =If(ShowNotification,280,0)
+        X: =If(ShowNotification,1090,1360)
+        Y: =123
+        ZIndex: =7
+
+        Container162 As groupContainer.manualLayoutContainer:
+            Fill: =RGBA(214, 221, 224, 0.58)
+            Height: =Parent.Height
+            Visible: |
+                =If(NotificationGallerynew.AllItemsCount=0&&NotificationGalleryold.AllItemsCount=0,true,false)
+            Width: =Parent.Width
+            ZIndex: =1
+
+            Label7 As label:
+                Align: =Align.Center
+                Color: =RGBA(62, 128, 149, 1)
+                FontWeight: =FontWeight.Bold
+                Height: =46
+                Text: ="No Data"
+                Width: =192
+                X: =40
+                Y: =339
+                ZIndex: =1
+
+        NotificationGalleryold As gallery.variableTemplateHeightGallery:
+            DelayItemLoading: =true
+            Height: |
+                =If(NotificationGallerynew.AllItemsCount=0,Parent.Height,If(NotificationGalleryold.AllItemsCount=0,0,If(NotificationGalleryold.AllItemsCount<10,NotificationGalleryold.AllItemsCount*50,350)))
+            Items: |-
+                =Filter(InitCollection,Value(PerfYear)=Value(VarCurrentYear.Value),DateDiff(Modified,Today())>0,'Current Pending'=VarUSerName)
+                //Filter('Initiative List',PerfYear=VarCurrentYear.Value,'Current Pending'=VarUSerName)
+                //Filter(InitCollection,Value(PerfYear)=Value(VarCurrentYear.Value))
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =If(
+                    VarUSerName = "admin",
+                    Navigate('For Admin Action'),
+                    If(
+                        VarUSerName = "champion",
+                        Navigate('For Champion Action(C)'),
+                        If(
+                            VarUSerName = "approver1",
+                            Navigate('For Approval(Approver1)'),
+                            If(
+                                VarUSerName = "approver2",
+                                Navigate('For Approval(Approver2)'),
+                                If(
+                                    VarUSerName = "approver3",
+                                    Navigate('For Approval 3'),
+                                    If(
+                                        VarUSerName = "approver4",
+                                        Navigate('For Approval 4')
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ShowScrollbar: =false
+            TemplatePadding: =1
+            TemplateSize: =50
+            Width: =Parent.Width
+            Y: =NotificationGallerynew.Height+Label48.Height+Label48_1.Height
+            ZIndex: =2
+
+            Label50 As label:
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                OnSelect: =Select(Parent)
+                Text: |+
+                    =If(Len(ThisItem.'Initiative Name'&" is Waiting For Your Responce")<63,ThisItem.'Initiative Name'&" is Waiting For Your Responce",ThisItem.'Initiative Name'&" is Waiting for your ...")
+                    
+                Width: =Parent.Width
+                Y: =10
+                ZIndex: =1
+
+        NotificationGallerynew As gallery.variableTemplateHeightGallery:
+            DelayItemLoading: =true
+            Height: |
+                =If(NotificationGalleryold.AllItemsCount=0,Parent.Height,If(NotificationGallerynew.AllItemsCount=0,0,If(NotificationGallerynew.AllItemsCount<10,NotificationGallerynew.AllItemsCount*50,350)))
+            Items: =Filter('Initiative List',Not(Progress="Approved"),DateDiff(Modified,Today())=0,Value(PerfYear)=Value(VarCurrentYear.Value),'Current Pending'=VarUSerName)
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =If(
+                    VarUSerName = "admin",
+                    Navigate('For Admin Action'),
+                    If(
+                        VarUSerName = "champion",
+                        Navigate('For Champion Action(C)'),
+                        If(
+                            VarUSerName = "approver1",
+                            Navigate('For Approval(Approver1)'),
+                            If(
+                                VarUSerName = "approver2",
+                                Navigate('For Approval(Approver2)'),
+                                If(
+                                    VarUSerName = "approver3",
+                                    Navigate('For Approval 3'),
+                                    If(
+                                        VarUSerName = "approver4",
+                                        Navigate('For Approval 4')
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ShowScrollbar: =false
+            TemplatePadding: =1
+            TemplateSize: =280
+            Width: =Parent.Width
+            Y: =Label48.Height
+            ZIndex: =3
+
+            Label38 As label:
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Semibold
+                OnSelect: =Select(Parent)
+                Text: |+
+                    =If(Len(ThisItem.'Initiative Name'&" is Waiting For Your Responce")<63,ThisItem.'Initiative Name'&" is Waiting For Your Responce",ThisItem.'Initiative Name'&" is Waiting for your ...")
+                    
+                Width: =Parent.Width
+                Y: =21
+                ZIndex: =1
+
+        Label48 As label:
+            Color: =RGBA(62, 128, 149, 1)
+            Font: =Font.'Courier New'
+            FontWeight: =FontWeight.Semibold
+            Height: |-
+                =If(
+                    NotificationGallerynew.AllItemsCount = 0,
+                    0,
+                    30
+                )
+            Text: ="New (" &NotificationGallerynew.AllItemsCount&") !"
+            Width: =Parent.Width
+            ZIndex: =4
+
+        Label48_1 As label:
+            Color: =RGBA(62, 128, 149, 1)
+            Font: =Font.'Courier New'
+            FontWeight: =FontWeight.Bold
+            Height: |-
+                =If(
+                    NotificationGalleryold.AllItemsCount = 0,
+                    0,
+                    30
+                )
+            Size: =16
+            Text: ="Old (" &NotificationGalleryold.AllItemsCount&") !"
+            Width: =Parent.Width
+            Y: =Label48.Height+NotificationGallerynew.Height
+            ZIndex: =5
+
